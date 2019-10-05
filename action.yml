@@ -4,8 +4,8 @@ author: 'goto-bus-stop'
 inputs:
   files:
     description: 'Globs to lint.'
-    required: true
-    default: [] # let standard pick the default list
+    # let standard pick the default list
+    # default: []
   version:
     description: 'Output format style, see https://eslint.org/docs/user-guide/formatters/. Default `stylish`.'
     required: true
