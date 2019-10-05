@@ -4,6 +4,8 @@ Github Action to lint with &#x60;standard&#x60;
 
 [Usage](#usage) - [License: Apache-2.0](#license)
 
+![Screenshot with Annotations](screenshot.png)
+
 ## Usage
 
 In a Github Actions workflow file, do something like:
