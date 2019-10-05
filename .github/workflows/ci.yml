@@ -13,3 +13,7 @@ jobs:
           version: 12.x
       - run: npm install
       - uses: goto-bus-stop/standard-action@make-it-wor
+        with:
+          annotate: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
