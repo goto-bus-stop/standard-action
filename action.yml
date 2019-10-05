@@ -5,7 +5,7 @@ inputs:
   files:
     description: 'Globs to lint.'
     required: true
-    default: '**/*.js'
+    default: [] # let standard pick the default list
   version:
     description: 'Output format style, see https://eslint.org/docs/user-guide/formatters/. Default `stylish`.'
     required: true
