@@ -10,6 +10,9 @@ inputs:
     description: 'Standard-compatible linter variant to use. ex. semistandard, happiness, doublestandard...'
     required: true
     default: 'standard'
+  annotate:
+    description: 'Annotate the diff UI with lint errors. Requires passing in env.GITHUB_TOKEN.'
+    default: false
 runs:
   using: 'node12'
   main: 'index.js'
