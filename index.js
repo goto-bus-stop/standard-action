@@ -19,6 +19,7 @@ main().catch((err) => {
 
 async function publishResults (results) {
   const annotations = []
+  var x
 
   for (const result of results.results) {
     annotations.push(...toAnnotations(result))
