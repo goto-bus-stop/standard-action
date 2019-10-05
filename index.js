@@ -5,12 +5,13 @@ const actions = require('@actions/core')
 const resolve = require('resolve')
 
 const {
-  GITHUB_ACTION,
   GITHUB_REPOSITORY,
   GITHUB_SHA,
   GITHUB_TOKEN,
   GITHUB_WORKSPACE
 } = process.env
+
+const CHECK_NAME = 'Standard'
 
 main().catch((err) => {
   actions.setFailed(err.message)
@@ -32,13 +33,13 @@ async function publishResults (results) {
   }
 
   const check = {
-    name: GITHUB_ACTION,
+    name: CHECK_NAME,
     head_sha: GITHUB_SHA,
     status: 'completed',
     started_at: new Date(),
     conclusion: results.errorCount > 0 ? 'failure' : 'success',
     output: {
-      title: GITHUB_ACTION,
+      title: CHECK_NAME,
       summary: `${results.errorCount} error(s), ${results.warningCount} warning(s) found`,
       annotations
     }
