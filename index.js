@@ -82,12 +82,12 @@ function printResults (results, formatStyle) {
 function loadLinter (name) {
   let linterPath
   try {
-    linterPath = resolve.sync(linterName, { basedir: process.cwd() })
+    linterPath = resolve.sync(name, { basedir: process.cwd() })
   } catch (err) {
     if (name === 'standard') {
       linterPath = 'standard' // use our bundled standard version
     } else {
-      throw new Error(`Linter '${linterName}' not found, perhaps you need a 'run: npm install' step before this one?`)
+      throw new Error(`Linter '${name}' not found, perhaps you need a 'run: npm install' step before this one?`)
     }
   }
 
@@ -95,11 +95,11 @@ function loadLinter (name) {
   try {
     linter = require(linterPath)
   } catch (err) {
-    throw new Error(`Linter '${linterName}' not found, perhaps you need a 'run: npm install' step before this one?`)
+    throw new Error(`Linter '${name}' not found, perhaps you need a 'run: npm install' step before this one?`)
   }
 
   if (!linter.lintFiles) {
-    throw new Error(`Module '${linterName}' is not a standard-compatible linter.`)
+    throw new Error(`Module '${name}' is not a standard-compatible linter.`)
   }
 
   return linter
