@@ -1,4 +1,4 @@
-name: 'Standard'
+name: 'StandardJS lint checks'
 description: 'Check that your code follows Standard Style'
 icon: 'code'
 color: 'yellow'
