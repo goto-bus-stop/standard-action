@@ -12,4 +12,4 @@ jobs:
         with:
           version: 12.x
       - run: npm install
-      - uses: goto-bus-stop/standard-action@default
+      - uses: goto-bus-stop/standard-action@make-it-wor
