@@ -110,7 +110,7 @@ async function main () {
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
   const useAnnotations = actions.getInput('annotate')
-  if (useAnnotations === true && !process.env.GITHUB_TOKEN) {
+  if (useAnnotations === 'true' && !process.env.GITHUB_TOKEN) {
     throw new Error(`when using annotate: true, you must set
 
     env:
@@ -126,7 +126,7 @@ in your action config.`)
 
   printResults(results, formatStyle)
 
-  if (useAnnotations) {
+  if (useAnnotations === 'true') {
     try {
       await publishResults(results)
     } catch (err) {
