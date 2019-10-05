@@ -1,7 +1,7 @@
 {
   "name": "standard-action",
   "description": "Github Action to lint with &#x60;standard&#x60;",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Renée Kooi <renee@kooi.me>",
   "bugs": {
     "url": "https://github.com/goto-bus-stop/standard-action/issues"
