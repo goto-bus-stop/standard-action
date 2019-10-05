@@ -13,6 +13,7 @@ jobs:
           version: 12.x
       - run: npm install
       - uses: goto-bus-stop/standard-action@make-it-wor
+        name: Standard
         with:
           annotate: true
         env:
