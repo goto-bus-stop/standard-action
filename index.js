@@ -110,6 +110,7 @@ async function main () {
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
   const useAnnotations = actions.getInput('annotate')
+  const files = actions.getInput('files')
   if (useAnnotations === 'true' && !process.env.GITHUB_TOKEN) {
     throw new Error(`when using annotate: true, you must set
 
@@ -122,7 +123,7 @@ in your action config.`)
   const linter = loadLinter(linterName)
 
   const lintFiles = promisify(linter.lintFiles.bind(linter))
-  const results = await lintFiles(['index.js'])
+  const results = await lintFiles(files)
 
   printResults(results, formatStyle)
 

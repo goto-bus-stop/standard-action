@@ -19,8 +19,11 @@ jobs:
           # optionally select a different, standard-like linter
           # linter: semistandard
 
-          # optionally select a different eslint formatter for the log output (default 'stylish'
+          # optionally select a different eslint formatter for the log output, default 'stylish'
           # formatter: tap
+
+          # limit the files to lint, default '**/*.js'
+          # files: src/*.js
 
           # show errors in the the github diff UI
           annotate: true
@@ -40,6 +43,8 @@ To use a different linter than `standard`, or use a specific version of `standar
   with:
     linter: semistandard
 ```
+
+If you do not install any linter yourself, this action will use Standard v14.
 
 ## License
 
