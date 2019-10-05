@@ -79,15 +79,36 @@ function printResults (results, formatStyle) {
   console.log(formatter(results.results, {}))
 }
 
+function loadLinter (name) {
+  let linterPath
+  try {
+    linterPath = resolve.sync(linterName, { basedir: process.cwd() })
+  } catch (err) {
+    if (name === 'standard') {
+      linterPath = 'standard' // use our bundled standard version
+    } else {
+      throw new Error(`Linter '${linterName}' not found, perhaps you need a 'run: npm install' step before this one?`)
+    }
+  }
+
+  let linter
+  try {
+    linter = require(linterPath)
+  } catch (err) {
+    throw new Error(`Linter '${linterName}' not found, perhaps you need a 'run: npm install' step before this one?`)
+  }
+
+  if (!linter.lintFiles) {
+    throw new Error(`Module '${linterName}' is not a standard-compatible linter.`)
+  }
+
+  return linter
+}
+
 async function main () {
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
-  const linterPath = resolve.sync(linterName, { basedir: process.cwd() })
-  const linter = require(linterPath)
-  if (!linter.lintFiles) {
-    actions.setFailed(`Module '${linterName}' is not a standard-compatible linter.`)
-    process.exit(1)
-  }
+  const linter = loadLinter(linterName)
 
   const lintFiles = promisify(linter.lintFiles.bind(linter))
   const results = await lintFiles(['index.js'])
