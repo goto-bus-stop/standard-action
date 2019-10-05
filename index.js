@@ -12,7 +12,10 @@ const {
   GITHUB_WORKSPACE
 } = process.env
 
-main()
+main().catch((err) => {
+  actions.setFailed(err.message)
+  process.exit(1)
+})
 
 async function publishResults (results) {
   const annotations = []
