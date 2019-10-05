@@ -123,7 +123,7 @@ in your action config.`)
   const linter = loadLinter(linterName)
 
   const lintFiles = promisify(linter.lintFiles.bind(linter))
-  const results = await lintFiles(files, {
+  const results = await lintFiles(files || [], {
     cwd: GITHUB_WORKSPACE
   })
 
