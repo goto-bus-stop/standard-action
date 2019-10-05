@@ -2,16 +2,21 @@ const fetch = require('node-fetch')
 const { promisify } = require('util')
 const { CLIEngine } = require('eslint')
 const actions = require('@actions/core')
+const resolve = require('resolve')
 
 const {
-  GITHUB_ACTION,
   GITHUB_REPOSITORY,
   GITHUB_SHA,
   GITHUB_TOKEN,
   GITHUB_WORKSPACE
 } = process.env
 
-main()
+const CHECK_NAME = 'Standard'
+
+main().catch((err) => {
+  actions.setFailed(err.message)
+  process.exit(1)
+})
 
 async function publishResults (results) {
   const annotations = []
@@ -28,13 +33,13 @@ async function publishResults (results) {
   }
 
   const check = {
-    name: GITHUB_ACTION,
+    name: CHECK_NAME,
     head_sha: GITHUB_SHA,
     status: 'completed',
     started_at: new Date(),
     conclusion: results.errorCount > 0 ? 'failure' : 'success',
     output: {
-      title: GITHUB_ACTION,
+      title: CHECK_NAME,
       summary: `${results.errorCount} error(s), ${results.warningCount} warning(s) found`,
       annotations
     }
@@ -75,25 +80,59 @@ function printResults (results, formatStyle) {
   console.log(formatter(results.results, {}))
 }
 
+function loadLinter (name) {
+  let linterPath
+  try {
+    linterPath = resolve.sync(name, { basedir: process.cwd() })
+  } catch (err) {
+    if (name === 'standard') {
+      linterPath = 'standard' // use our bundled standard version
+    } else {
+      throw new Error(`Linter '${name}' not found, perhaps you need a 'run: npm install' step before this one?`)
+    }
+  }
+
+  let linter
+  try {
+    linter = require(linterPath)
+  } catch (err) {
+    throw new Error(`Linter '${name}' not found, perhaps you need a 'run: npm install' step before this one?`)
+  }
+
+  if (!linter.lintFiles) {
+    throw new Error(`Module '${name}' is not a standard-compatible linter.`)
+  }
+
+  return linter
+}
+
 async function main () {
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
-  const linter = require(linterName)
-  if (!linter.lintFiles) {
-    actions.setFailed(`Module '${linterName}' is not a standard-compatible linter.`)
-    process.exit(1)
+  const useAnnotations = actions.getInput('annotate')
+  if (useAnnotations === true && !process.env.GITHUB_TOKEN) {
+    throw new Error(`when using annotate: true, you must set
+
+    env:
+      GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+
+in your action config.`)
   }
+
+  const linter = loadLinter(linterName)
 
   const lintFiles = promisify(linter.lintFiles.bind(linter))
   const results = await lintFiles(['index.js'])
 
   printResults(results, formatStyle)
 
-  try {
-    await publishResults(results)
-  } catch (err) {
-    console.error(err)
-    actions.setFailed(err.message)
+  if (useAnnotations) {
+    try {
+      await publishResults(results)
+    } catch (err) {
+      console.error(err)
+      actions.setFailed(err.message)
+    }
   }
 
   if (results.errorCount > 0) {
