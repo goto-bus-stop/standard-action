@@ -1,0 +1,15 @@
+name: CI
+on: push
+jobs:
+  smoke-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          version: 12.x
+      - run: npm install
+      - uses: goto-bus-stop/standard-action@default

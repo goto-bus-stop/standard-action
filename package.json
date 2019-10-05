@@ -1,0 +1,36 @@
+{
+  "name": "standard-action",
+  "description": "Github Action to lint with &#x60;standard&#x60;",
+  "version": "0.0.0",
+  "author": "Renée Kooi <renee@kooi.me>",
+  "bugs": {
+    "url": "https://github.com/goto-bus-stop/standard-action/issues"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
+  "homepage": "https://github.com/goto-bus-stop/standard-action",
+  "keywords": [
+    "Actions",
+    "Github",
+    "eslint",
+    "lint",
+    "standard",
+    "standardjs",
+    "style"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goto-bus-stop/standard-action.git"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "dependencies": {
+    "@actions/core": "^1.1.3",
+    "eslint": "^6.5.1",
+    "node-fetch": "^2.6.0"
+  }
+}

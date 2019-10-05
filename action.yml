@@ -1,0 +1,15 @@
+name: 'Standard'
+description: 'Check that your code follows Standard Style'
+author: 'goto-bus-stop'
+inputs:
+  version:
+    description: 'Output format style, see https://eslint.org/docs/user-guide/formatters/. Default `stylish`.'
+    required: true
+    default: 'stylish'
+  linter:
+    description: 'Standard-compatible linter variant to use. ex. semistandard, happiness, doublestandard...'
+    required: true
+    default: 'standard'
+runs:
+  using: 'node12'
+  main: 'index.js'
