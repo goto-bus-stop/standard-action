@@ -2,6 +2,7 @@ const fetch = require('node-fetch')
 const { promisify } = require('util')
 const { CLIEngine } = require('eslint')
 const actions = require('@actions/core')
+const resolve = require('resolve')
 
 const {
   GITHUB_ACTION,
@@ -78,7 +79,8 @@ function printResults (results, formatStyle) {
 async function main () {
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
-  const linter = require(linterName)
+  const linterPath = resolve.sync(linterName, { basedir: process.cwd() })
+  const linter = require(linterPath)
   if (!linter.lintFiles) {
     actions.setFailed(`Module '${linterName}' is not a standard-compatible linter.`)
     process.exit(1)
