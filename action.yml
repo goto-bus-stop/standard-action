@@ -1,5 +1,7 @@
 name: 'Standard'
 description: 'Check that your code follows Standard Style'
+icon: 'code'
+color: 'yellow'
 author: 'goto-bus-stop'
 inputs:
   files:
