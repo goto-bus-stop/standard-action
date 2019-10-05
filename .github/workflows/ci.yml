@@ -1,6 +1,15 @@
 name: CI
 on: push
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: goto-bus-stop/standard-action@default
+        with:
+          annotate: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
   smoke-test:
     strategy:
       matrix:
@@ -12,9 +21,5 @@ jobs:
         with:
           version: 12.x
       - run: npm install
-      - uses: goto-bus-stop/standard-action@make-it-wor
+      - uses: goto-bus-stop/standard-action@default
         name: Standard
-        with:
-          annotate: true
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
