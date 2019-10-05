@@ -46,6 +46,15 @@ To use a different linter than `standard`, or use a specific version of `standar
 
 If you do not install any linter yourself, this action will use Standard v14.
 
+## Multiple globs
+
+`with.files` must contain a string, so to pass multiple globs, you need to use a single glob string:
+```yaml
+- uses: goto-bus-stop/standard-action@v1.0.0
+  with:
+    files: '{src/**/*.js,test/**/*.js}'
+```
+
 ## License
 
 [Apache-2.0](LICENSE.md)
