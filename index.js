@@ -145,6 +145,8 @@ in your action config.`)
     cwd: GITHUB_WORKSPACE
   })
 
+  console.log({ files, results })
+
   printResults(results, formatStyle)
 
   if (useAnnotations === 'true') {
