@@ -18,12 +18,28 @@ main().catch((err) => {
   process.exit(1)
 })
 
+function mergeAnnotations (annotations) {
+  const combineWith = new Map()
+  for (let i = 0; i < annotations.length; i += 1) {
+    const annotation = annotations[i]
+    const key = `${annotation.annotation_level}:${annotation.start_line}`
+    if (combineWith.has(key)) {
+      combineWith.message += `\n${annotation.message}`
+      annotations.splice(i, 1)
+      i -= 1
+    } else {
+      combineWith.set(key, annotation)
+    }
+  }
+}
+
 async function publishResults (results) {
   const annotations = []
 
   for (const result of results.results) {
     annotations.push(...toAnnotations(result))
   }
+  mergeAnnotations(annotations)
 
   const headers = {
     'content-type': 'application/json',
