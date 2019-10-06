@@ -11,7 +11,7 @@ const {
   GITHUB_WORKSPACE
 } = process.env
 
-var does_it_work = "";
+const does_it_work = "";
 
 const CHECK_NAME = 'Standard'
 
