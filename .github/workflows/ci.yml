@@ -4,7 +4,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: goto-bus-stop/standard-action@v1.0.0
+      - uses: goto-bus-stop/standard-action@combine
         with:
           annotate: true
         env:
