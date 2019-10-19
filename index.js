@@ -11,7 +11,7 @@ const {
   GITHUB_WORKSPACE
 } = process.env
 
-const CHECK_NAME = 'Standard'
+let CHECK_NAME = "Standard";
 
 main().catch(err => {
   actions.setFailed(err.message)
