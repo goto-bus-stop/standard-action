@@ -4,6 +4,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - uses: goto-bus-stop/standard-action@v1.0.0
         with:
           annotate: true
