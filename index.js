@@ -72,7 +72,7 @@ async function publishResults (results) {
   }
 
   function clubMessagesOnSameLine (messages) {
-    let messagesClubbedByLine = {}
+    const messagesClubbedByLine = {}
     messages.forEach(message => {
       messagesClubbedByLine[message.line] =
         messagesClubbedByLine[message.line] || []
