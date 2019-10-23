@@ -13,7 +13,7 @@ const {
 
 const CHECK_NAME = 'Standard'
 
-main().catch(err => {
+main().catch((err) => {
   actions.setFailed(err.message)
   process.exit(1)
 })
@@ -70,10 +70,12 @@ async function publishResults (results) {
       message: `[${ruleId}] ${message}`
     }
   }
+
   function clubMessagesOnSameLine (messages) {
-    const messagesClubbedByLine = {}
+    let messagesClubbedByLine = {}
     messages.forEach(message => {
-      messagesClubbedByLine[message.line] = messagesClubbedByLine[message.line] || []
+      messagesClubbedByLine[message.line] =
+        messagesClubbedByLine[message.line] || []
       messagesClubbedByLine[message.line].push(message)
     })
     return messagesClubbedByLine
