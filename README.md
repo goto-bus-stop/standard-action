@@ -15,8 +15,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: goto-bus-stop/standard-action@v1.0.0
+      - uses: actions/checkout@v2
+      - uses: goto-bus-stop/standard-action@v1
         with:
           # optionally select a different, standard-like linter
           # linter: semistandard
@@ -38,10 +38,10 @@ jobs:
 To use a different linter than `standard`, or use a specific version of `standard`, add it as a devDependency to your project, and run `npm install` in your workflow so the action can `require()` it.
 
 ```yaml
-- uses: actions/checkout@v1
+- uses: actions/checkout@v2
 - uses: actions/setup-node@v1
 - run: npm install
-- uses: goto-bus-stop/standard-action@v1.0.0
+- uses: goto-bus-stop/standard-action@v1
   with:
     linter: semistandard
 ```
@@ -52,7 +52,7 @@ If you do not install any linter yourself, this action will use Standard v14.
 
 `with.files` must contain a string, so to pass multiple globs, you need to use a single glob string:
 ```yaml
-- uses: goto-bus-stop/standard-action@v1.0.0
+- uses: goto-bus-stop/standard-action@v1
   with:
     files: '{src/**/*.js,test/**/*.js}'
 ```
