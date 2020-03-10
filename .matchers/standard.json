@@ -4,7 +4,7 @@
       "owner": "standard",
       "pattern": [
         {
-          "regexp": "^(.*?):(\d+):(\d+):\s+*.?\s+\((\w+)\)$",
+          "regexp": "^(.*?):(\\d+):(\\d+):\\s+*.?\\s+\\((\\w+)\\)$",
           "file": 1,
           "line": 2,
           "column": 3,
