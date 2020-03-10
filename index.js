@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 const { promisify } = require('util')
 const { CLIEngine } = require('eslint')
 const actions = require('@actions/core')
@@ -107,6 +107,8 @@ function loadLinter (name) {
 }
 
 async function main () {
+  console.log('::add-matcher::.matchers/standard.json')
+
   const formatStyle = actions.getInput('formatter')
   const linterName = actions.getInput('linter')
   const useAnnotations = actions.getInput('annotate')

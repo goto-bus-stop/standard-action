@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: goto-bus-stop/standard-action@v1
+      - uses: goto-bus-stop/standard-action@problem-matcher
         with:
           annotate: true
         env:
@@ -22,5 +22,5 @@ jobs:
         with:
           node-version: 12.x
       - run: npm install
-      - uses: goto-bus-stop/standard-action@default
+      - uses: goto-bus-stop/standard-action@problem-matcher
         name: Standard

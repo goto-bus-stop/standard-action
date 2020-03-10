@@ -1,0 +1,18 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "standard",
+      "pattern": [
+        {
+          "regexp": "^(.*?):(\d+):(\d+):\s+*.?\s+\((\w+)\)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "message": 4,
+          "code": 5,
+          "loop": true
+        }
+      ]
+    }
+  ]
+}
