@@ -57,21 +57,43 @@ async function publishResults (results) {
     throw err
   }
 
+  function annotateMessage ({ line, severity, ruleId, message }, path) {
+    const annotationLevel = {
+      1: 'warning',
+      2: 'failure'
+    }[severity]
+    return {
+      path,
+      start_line: line,
+      end_line: line,
+      annotation_level: annotationLevel,
+      message: `[${ruleId}] ${message}`
+    }
+  }
+
+  function clubMessagesOnSameLine (messages) {
+    const messagesClubbedByLine = {}
+    messages.forEach(message => {
+      messagesClubbedByLine[message.line] =
+        messagesClubbedByLine[message.line] || []
+      messagesClubbedByLine[message.line].push(message)
+    })
+    return messagesClubbedByLine
+  }
+
   function toAnnotations ({ filePath, messages }) {
     const path = filePath.substr(GITHUB_WORKSPACE.length + 1)
-    return messages.map(({ line, severity, ruleId, message }) => {
-      const annotationLevel = {
-        1: 'warning',
-        2: 'failure'
-      }[severity]
-      return {
-        path,
-        start_line: line,
-        end_line: line,
-        annotation_level: annotationLevel,
-        message: `[${ruleId}] ${message}`
-      }
-    })
+    const messagesClubbedByLine = clubMessagesOnSameLine(messages)
+    return Object.keys(messagesClubbedByLine).reduce(
+      (prevAnnotations, lineNumber) => {
+        return prevAnnotations.concat(
+          messagesClubbedByLine[lineNumber].map(message =>
+            annotateMessage(message, path)
+          )
+        )
+      },
+      []
+    )
   }
 }
 
