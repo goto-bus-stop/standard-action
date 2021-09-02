@@ -1,3 +1,25 @@
+> :warning: Archived
+
+This action's purpose was to provide linting annotations in PRs. Github now provides that feature by default, so you do not need this.
+
+Instead of this action, use:
+
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # This sets up a "problem matcher" for eslint and standard
+      - uses: actions/setup-node@v2
+      # Now you can just run eslint or standard yourself
+      - run: npx standard
+```
+
+The old readme is archived below.
+
+---
+
 # standard-action
 
 Github Action to lint with &#x60;standard&#x60;
